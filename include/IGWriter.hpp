@@ -3,8 +3,6 @@
 
    InterfaceGraph Writer
 
-   You do NOT need to modify this file as part of your project.
-
    See the "Visualizing Your Register Allocation" section of the README.md
    for more information.
    
