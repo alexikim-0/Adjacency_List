@@ -5,7 +5,71 @@ The key idea from the paper is that of an interference graph. An interference gr
 
 Each line in the interference graph represents either an edge or vertex in the graph. Thus, each row will have either one or two "columns". If it is a single column row, that represents a lone vertex. If it is a two column row that represents an edge. There is a pre-written function load() in CSVReader which will parse the CSV file and add the nodes to your graph structure. The addVertex and addEdge functions which it calls will be added by you.
 
-The difficulty of this part will depend on the data structures you use to store the nodes and edges of the graph. I recommend thinking deeply about the data structures studied in the course, and having a plan before starting. This part should be relatively easy compared to other data structures implemented in this course.
+InterferenceGraph()
+
+
+The constructor for the InterferenceGraph class. Member data should be initialized here if needed.
+
+~InterferenceGraph()
+
+
+Destructor for the InterferenceGraph class. You are explicitly allowed to use anything from the standard library. However, if you choose to use your own linked list implementation to store the neighbors you will need to deallocate the dynamically allocated memory.
+
+void addEdge(const T &v, const T &w)
+
+
+This function will be called in the load() function, once for each line in the corresponding CSV file. This function should add an undirected edge between `v` and `w`, representing an interference between the variable `v` and variable `w`. You can assume that the test cases will never attempt to insert duplicate edges such as both "x,y" and "y,x". If either `v` or `w` is not present in the graph, you should throw an UnknownVertexException.
+
+
+void addVertex(const T& vertex)
+
+
+Called in the load() function once for each vertex in a given row of the CSV. That is, if the row indicates an edge like x,y then addVertex("x") and addVertex("y") will both be called. If the line is a lone vertex like x then just addVertex("x") will be called. This function simply adds a vertex with no neighbors to your graph. If the vertex already exists in the graph you should NOT erase the neighbors of the vertex, you can just simply return. The contract with the caller is that `vertex` will exist in the graph after the call.
+
+void removeEdge(const T& source, const T& destination)
+
+
+This function should remove an undirected edge from your interference graph. If the edge doesn't exist you should throw an UnknownEdgeException. If either of the vertices aren't
+in the graph you should throw an UnknownVertexException.
+
+void removeVertex(const T& vertex)
+
+
+Removes a vertex from your interference graph. After this function is run the vertex should be completely removed from the graph. If the vertex already does not exist you should throw an UnknownVertexException.
+
+std::unordered_set<T> vertices() const noexcept
+
+
+Simply returns a set with all vertices in it.
+
+
+std::unordered_set<T> neighbors(const T& vertex) const
+
+
+Returns a set containing all the neighbors of a given vertex. If the vertex is not
+present in the graph, you should throw an UnknownVertexException.
+
+unsigned numVertices() const noexcept
+
+
+Returns the number of vertices in the graph. Should run in constant time.
+
+unsigned numEdges() const noexcept
+
+
+Returns the number of undirected edges in the graph. Should run in constant time.
+
+bool interferes(const T& v, const T& w) const
+
+
+Returns true if there is an interference between vertex v and vertex w. If either v or w are not in the graph you should throw an UnknownVertexException.
+
+unsigned degree(const T& v) const
+
+
+Return the degree of vertex v. If it doesn't exist in the graph you should throw an UnknownVertexException.
+
+
 
 Runtime Expectations
 
